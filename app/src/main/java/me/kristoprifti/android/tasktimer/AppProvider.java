@@ -42,8 +42,8 @@ public class AppProvider extends ContentProvider {
         private static final int TASK_TIMINGS_ID = 301;
     */
 
-    private static final int TASK_DURATIONS = 300;
-    private static final int TASK_DURATIONS_ID = 301;
+    private static final int TASK_DURATIONS = 400;
+    private static final int TASK_DURATIONS_ID = 401;
 
     private static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -194,7 +194,7 @@ public class AppProvider extends ContentProvider {
         switch (match) {
             case TASKS:
                 db = mOpenHelper.getWritableDatabase();
-                count = db.delete(TasksContract.TABLE_NAME, selection, selectionArgs);
+                count = db.delete(TABLE_NAME, selection, selectionArgs);
                 break;
 
             case TASKS_ID:
@@ -205,7 +205,7 @@ public class AppProvider extends ContentProvider {
                 if(selection != null && selection.length() > 0){
                     selectionCriteria += " AND (" + selection + ")";
                 }
-                count = db.delete(TasksContract.TABLE_NAME, selectionCriteria, selectionArgs);
+                count = db.delete(TABLE_NAME, selectionCriteria, selectionArgs);
                 break;
 
             /*case TIMINGS:
@@ -245,7 +245,7 @@ public class AppProvider extends ContentProvider {
         switch (match) {
             case TASKS:
                 db = mOpenHelper.getWritableDatabase();
-                count = db.update(TasksContract.TABLE_NAME, contentValues, selection, selectionArgs);
+                count = db.update(TABLE_NAME, contentValues, selection, selectionArgs);
                 break;
 
             case TASKS_ID:
@@ -256,7 +256,7 @@ public class AppProvider extends ContentProvider {
                 if(selection != null && selection.length() > 0){
                     selectionCriteria += " AND (" + selection + ")";
                 }
-                count = db.update(TasksContract.TABLE_NAME, contentValues, selectionCriteria, selectionArgs);
+                count = db.update(TABLE_NAME, contentValues, selectionCriteria, selectionArgs);
                 break;
 
             /*case TIMINGS:

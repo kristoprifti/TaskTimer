@@ -21,10 +21,19 @@
         </activity>
 
         <provider
-            android:name="me.kristoprifti.android.tasktimer.AppProvider"
+            android:name=".AppProvider"
             android:authorities="me.kristoprifti.android.tasktimer.provider"
             android:exported="false"/>
 
+        <activity
+            android:name=".AddEditActivity"
+            android:label="@string/title_activity_add_edit"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.kristoprifti.android.tasktimer.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
