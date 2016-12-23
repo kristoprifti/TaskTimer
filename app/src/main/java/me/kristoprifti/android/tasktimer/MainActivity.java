@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnTaskClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -71,5 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         }
+    }
+
+    @Override
+    public void onEditClick(Task task) {
+        taskEditRequest(task);
+    }
+
+    @Override
+    public void onDeleteClick(Task task) {
+        getContentResolver().delete(TasksContract.buildTaskUri(task.getId()), null, null);
     }
 }
