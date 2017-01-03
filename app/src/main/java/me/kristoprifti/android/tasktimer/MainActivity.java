@@ -2,13 +2,16 @@ package me.kristoprifti.android.tasktimer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnTaskClickListener {
+public class MainActivity extends AppCompatActivity implements CursorRecyclerViewAdapter.OnTaskClickListener,
+                                   AddEditActivityFragment.OnSaveClicked {
 
     private static final String TAG = "MainActivity";
 
@@ -23,6 +26,21 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(findViewById(R.id.task_details_container) != null){
+            //two pane mode
+            mTwoPane = true;
+        }
+    }
+
+    @Override
+    public void onSaveClicked() {
+        Log.d(TAG, "onSaveClicked: starts");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.task_details_container);
+        if(fragment != null){
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
     }
 
     @Override
@@ -61,6 +79,13 @@ public class MainActivity extends AppCompatActivity implements CursorRecyclerVie
         Log.d(TAG, "taskEditRequest: start");
         if(mTwoPane){
             Log.d(TAG, "taskEditRequest: in two pane mode tablet");
+            AddEditActivityFragment fragment = new AddEditActivityFragment();
+
+            Bundle arguments = new Bundle();
+            arguments.putSerializable(Task.class.getSimpleName(), task);
+            fragment.setArguments(arguments);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.task_details_container, fragment).commit();
         } else {
             Log.d(TAG, "taskEditRequest: in single pane mode phone");
             Intent detailIntent = new Intent(this, AddEditActivity.class);

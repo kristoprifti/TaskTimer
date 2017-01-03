@@ -1,11 +1,13 @@
 package me.kristoprifti.android.tasktimer;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-public class AddEditActivity extends AppCompatActivity {
+public class AddEditActivity extends AppCompatActivity implements AddEditActivityFragment.OnSaveClicked{
     public static final String TAG = "AddEditActivity";
 
     @Override
@@ -17,6 +19,20 @@ public class AddEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        AddEditActivityFragment fragment = new AddEditActivityFragment();
+
+        Bundle arguments = getIntent().getExtras();
+        fragment.setArguments(arguments);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment, fragment);
+        fragmentTransaction.commit();
     }
 
+    @Override
+    public void onSaveClicked() {
+        finish();
+    }
 }
