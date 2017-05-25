@@ -107,7 +107,7 @@ public class AppDialog extends DialogFragment {
                     }
                 });
 
-        return super.onCreateDialog(savedInstanceState);
+        return builder.create();
     }
 
     @Override
@@ -117,11 +117,5 @@ public class AppDialog extends DialogFragment {
             int dialogId = getArguments().getInt(DIALOG_ID);
             mDialogEvents.onDialogCancelled(dialogId);
         }
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        Log.d(TAG, "onDismiss: called");
-        super.onDismiss(dialog);
     }
 }
