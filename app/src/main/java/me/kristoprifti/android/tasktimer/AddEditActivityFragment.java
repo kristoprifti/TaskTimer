@@ -20,13 +20,12 @@ import static android.content.ContentValues.TAG;
  */
 public class AddEditActivityFragment extends Fragment {
 
-    public enum FragmentEditMode { EDIT, ADD }
+    private enum FragmentEditMode { EDIT, ADD }
     private FragmentEditMode mMode;
 
     private EditText mNameTextView;
     private EditText mDescriptionTextView;
     private EditText mSortOrderTextView;
-    private Button mSaveButton;
     private OnSaveClicked mSaveListener = null;
 
     interface OnSaveClicked {
@@ -71,7 +70,7 @@ public class AddEditActivityFragment extends Fragment {
         mNameTextView = (EditText) view.findViewById(R.id.addedit_name);
         mDescriptionTextView = (EditText) view.findViewById(R.id.addedit_description);
         mSortOrderTextView = (EditText) view.findViewById(R.id.addedit_sortorder);
-        mSaveButton = (Button) view.findViewById(R.id.addedit_save);
+        Button mSaveButton = (Button) view.findViewById(R.id.addedit_save);
 
         Bundle arguments = getArguments();
 
